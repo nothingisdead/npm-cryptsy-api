@@ -1,0 +1,31 @@
+{
+  "name": "crypsty-api",
+  "version": "0.0.1",
+  "description": "cryptsy.com API client for node.js",
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "crypsty"
+  ],
+  "author": "Robert Myers (https://github.com/nothingisdead)",
+  "contributors": [
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "querystring": "0.2.0",
+    "request": "2.21.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nothingisdead/crypsty-api"
+  },
+  "main": "crypsty.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "bugs": {
+    "url": "https://github.com/nothingisdead/crypsty-api/issues",
+    "email": "rbmyr8@gmail.com"
+  },
+  "readmeFilename": "README.md"
+}
