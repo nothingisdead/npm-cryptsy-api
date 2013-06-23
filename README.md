@@ -6,6 +6,7 @@ In addition, it exposes a getmarketid method, which accepts a string that descri
 
 Example Usage:
 
+```bash
 var market = 'LTCBTC';
 var cryptsy = require('cryptsy-api');
 var client = new CryptsyClient('my_public_key', 'my_private_key');
@@ -24,6 +25,8 @@ client.getmarketid(market, function(market_id) {
 			console.log('You don\'t have any trades in the ' + market + ' market!');
 	});
 });
+```
+
 
 Credit:
 
