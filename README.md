@@ -1,6 +1,6 @@
 This is an asynchronous node js client for the cryptsy.com API.
 
-It exposes all the public methods found here: https://www.cryptsy.com/pages/api
+It exposes all the API methods found here: https://www.cryptsy.com/pages/api
 
 In addition, it exposes a getmarketid method, which accepts a string that describes the desired market in the format 'LTCBTC,' where LTC is the primary currency and BTC is the secondary. All methods are asynchronous, and called in the format client.method(arg1, arg2..., callback) where callback is a function that handles the returned data. The arguments must be passed in order as listed on the API docs linked above.
 
