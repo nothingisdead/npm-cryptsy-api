@@ -1,6 +1,6 @@
 {
   "name": "cryptsy-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "cryptsy.com API client for node.js",
   "keywords": [
     "btc",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nothingisdead/npm-crypsty-api"
+    "url": "https://github.com/nothingisdead/npm-cryptsy-api"
   },
-  "main": "crypsty.js",
+  "main": "cryptsy.js",
   "engines": {
     "node": ">=0.10"
   },
   "bugs": {
-    "url": "https://github.com/nothingisdead/npm-crypsty-api/issues",
+    "url": "https://github.com/nothingisdead/npm-cryptsy-api/issues",
     "email": "rbmyr8@gmail.com"
   },
   "readmeFilename": "README.md"
