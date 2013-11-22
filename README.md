@@ -38,4 +38,4 @@ The methods were modeled after the python client located here: https://github.co
 
 Feeling generous? Send me a fraction of a bitcoin!
 
-1JTrxTYqZLjKq4pUqzNzu1ygpBFQ4yR7jL
+1M2J3bj2ZvF5HRDGfKA42R3pbyKe3BmhHy
