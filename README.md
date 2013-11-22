@@ -9,7 +9,7 @@ Example Usage:
 ```javascript
 var market = 'LTCBTC';
 var cryptsy = require('cryptsy-api');
-var client = new CryptsyClient('my_public_key', 'my_private_key');
+var client = cryptsy('my_public_key', 'my_private_key');
 
 // Get the market ID for the NBL<-->BTC market
 client.getmarketid(market, function(market_id) {
