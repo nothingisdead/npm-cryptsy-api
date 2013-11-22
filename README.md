@@ -33,3 +33,9 @@ Credit:
 This package was first modeled after the mtgox-apiv2 npm package located here: https://github.com/ameen3/node-mtgox-apiv2.
 
 The methods were modeled after the python client located here: https://github.com/ScriptProdigy/CryptsyPythonAPI.
+
+
+
+Feeling generous? Send me a fraction of a bitcoin!
+
+1JTrxTYqZLjKq4pUqzNzu1ygpBFQ4yR7jL
