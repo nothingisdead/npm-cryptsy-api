@@ -50,9 +50,9 @@ function CryptsyClient(key, secret) {
     request(options, function(err, res, body) {
       var response = JSON.parse(body);
       if(response.success === '1' && typeof callback == typeof Function)
-        callback(response.return);
+        callback(null, response.return);
       else if(response.error)
-        throw new Error(response.error);
+        callback(response.error);
     });
   }
 
