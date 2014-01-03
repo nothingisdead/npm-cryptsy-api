@@ -49,7 +49,7 @@ function CryptsyClient(key, secret) {
     }
     request(options, function(err, res, body) {
       var response = JSON.parse(body);
-      if(response.success === '1' && typeof callback == typeof Function)
+      if(parseInt(response.success) === '1' && typeof callback == typeof Function)
         callback(response.return);
       else if(response.error)
         throw new Error(response.error);
