@@ -51,7 +51,7 @@ function CryptsyClient(key, secret) {
     }
     request(options, function(err, res, body) {
       var response = JSON.parse(body);
-      if(parseInt(response.success) === '1' && typeof callback == typeof Function)
+      if(parseInt(response.success) === 1 && typeof callback == typeof Function)
         callback(response.return);
       else if(response.error)
         throw new Error(response.error);
@@ -89,7 +89,7 @@ function CryptsyClient(key, secret) {
   }
 
   self.singleorderdata = function(marketid, callback) {
-    api_query('orderdata', callback, { marketid: marketid });
+    api_query('singleorderdata', callback, { marketid: marketid });
   }
 
   self.getinfo = function(callback) {
