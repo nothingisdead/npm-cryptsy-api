@@ -1,6 +1,7 @@
 var stringify = require("querystring").stringify,
     hmac = require("crypto").createHmac,
-    request = require("request");
+    request = require("request"),
+    publicMethods = ['marketdata','marketdatav2','orderdata','singleorderdata','singlemarketdata'];
 
 function CryptsyClient(key, secret) {
   var self = this;
@@ -27,9 +28,10 @@ function CryptsyClient(key, secret) {
       }
     };
     args.method = method;
-    if(method == 'marketdata' || method == 'orderdata')
+    if(publicMethods.indexOf(method) > -1)
     {
-      options.uri += '.php?' + stringify(args);
+      options.method = 'GET';
+      options.uri = 'http://pubapi.cryptsy.com/api.php?' + stringify(args); 
     }
     else
     {
@@ -49,7 +51,7 @@ function CryptsyClient(key, secret) {
     }
     request(options, function(err, res, body) {
       var response = JSON.parse(body);
-      if(response.success === '1' && typeof callback == typeof Function)
+      if(parseInt(response.success) === 1 && typeof callback == typeof Function)
         callback(response.return);
       else if(response.error)
         throw new Error(response.error);
@@ -68,12 +70,26 @@ function CryptsyClient(key, secret) {
       callback(self.markets[marketname]);
   };
 
+  // Old API method
   self.marketdata = function(callback) {
     api_query('marketdata', callback);
   }
 
+  // New API method
+  self.marketdatav2 = function(callback) {
+    api_query('marketdatav2', callback);
+  }
+
+  self.singlemarketdata = function(marketid, callback) {
+    api_query('singlemarketdata', callback, { marketid: marketid });
+  }
+
   self.orderdata = function(callback) {
     api_query('orderdata', callback);
+  }
+
+  self.singleorderdata = function(marketid, callback) {
+    api_query('singleorderdata', callback, { marketid: marketid });
   }
 
   self.getinfo = function(callback) {
