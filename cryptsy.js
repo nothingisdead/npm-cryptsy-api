@@ -50,6 +50,9 @@ function CryptsyClient(key, secret) {
       }
     }
     request(options, function(err, res, body) {
+      // re-queue the request if we timed out
+      if(!body)
+        self.api_query(method, callback, args);
       var response = JSON.parse(body);
       if(parseInt(response.success) === 1 && typeof callback == typeof Function)
         callback(response.return);
