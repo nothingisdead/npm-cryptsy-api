@@ -50,16 +50,23 @@ function CryptsyClient(key, secret) {
       }
     }
     request(options, function(err, res, body) {
-      // re-queue the request if we timed out
-      if( err ) {
-        log.debug('Cryptsy API Query problem. Retrying. The error was: ', err);
+      if( err || !body ) {
+        log.info('Cryptsy API Query problem. Retrying. The error was: ', err);
         api_query(method, callback, args);
       } else {
-        var response = JSON.parse(body);
+        try {
+          var response = JSON.parse(body);
+        }
+        catch(errtwo) {
+           log.info('Cryptsy API: Problem wwith response parsing.  Retrying. The error was: ', errtwo.message);
+           api_query(method, callback, args);
+        }
         if(parseInt(response.success) === 1 && typeof callback == typeof Function)
-          callback(response.return);
-        else if(response.error)
-          throw new Error(response.error);
+                callback(response.return);
+        else if(response.error) {
+                log.info('Cryptsy API Error. ');
+                throw new Error(response.error);
+        }
       }
     });
   }
