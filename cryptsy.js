@@ -58,13 +58,14 @@ function CryptsyClient(key, secret) {
           var response = JSON.parse(body);
         }
         catch(errtwo) {
-           log.info('Cryptsy API: Problem wwith response parsing.  Retrying. The error was: ', errtwo.message);
+           log.info('Cryptsy API: Problem with response parsing.  Retrying. The error was: ', errtwo.message);
+           log.info('Cryptsy API: Problem with response parsing.  Response Body: ', body);
            api_query(method, callback, args);
         }
         if(parseInt(response.success) === 1 && typeof callback == typeof Function)
                 callback(response.return);
         else if(response.error) {
-                log.info('Cryptsy API Error. ');
+                log.info('Cryptsy API Error. Response error.');
                 throw new Error(response.error);
         }
       }
