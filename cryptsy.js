@@ -62,7 +62,11 @@ function CryptsyClient(key, secret) {
            log.info('Cryptsy API: Problem with response parsing.  Response Body: ', body);
            api_query(method, callback, args);
         }
-        if(parseInt(response.success) === 1 && typeof callback == typeof Function)
+        if(!response) {
+          log.info('Cryptsy API: Response is undefined.');
+          throw new Error(response.error);          
+        }
+        else if(parseInt(response.success) === 1 && typeof callback == typeof Function)
                 callback(response.return);
         else if(response.error) {
                 log.info('Cryptsy API Error. Response error.');
