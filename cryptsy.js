@@ -54,15 +54,20 @@ function CryptsyClient(key, secret) {
         log.info('Cryptsy API Query problem. Retrying. The error was: ', err);
         api_query(method, callback, args);
       } else {
+        var queryErr;
         try {
           var response = JSON.parse(body);
         }
         catch(errtwo) {
+           queryErr = true;
            log.info('Cryptsy API: Problem with response parsing.  Retrying. The error was: ', errtwo.message);
-           log.info('Cryptsy API: Problem with response parsing.  Response Body: ', body);
+           log.debug('Cryptsy API: Problem with response parsing.  Response Body: ', body);
            api_query(method, callback, args);
+           //callback(response.return);
         }
-        if(!response) {
+        if(queryErr)
+          log.debug('Cryptsy API: QueryErr code');
+        else if (!response) {
           log.info('Cryptsy API: Response is undefined.');
           throw new Error(response.error);          
         }
