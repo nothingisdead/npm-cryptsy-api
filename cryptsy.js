@@ -128,6 +128,10 @@ function CryptsyClient(key, secret) {
     api_query('allmytrades', callback);
   }
 
+  self.allmytradesdaterange = function(dates, callback) {
+    api_query('allmytrades', callback, { startdate: dates.startdate, enddate: dates.enddate });
+  }
+
   self.myorders = function(marketid, callback) {
     api_query('myorders', callback, { marketid: marketid });
   }
@@ -146,6 +150,18 @@ function CryptsyClient(key, secret) {
 
   self.calculatefees = function(ordertype, quantity, price, callback) {
     api_query('calculatefees', callback, { ordertype: ordertype, quantity: quantity, price: price });
+  }
+
+  self.mytransfers = function(callback) {
+    api_query('mytransfers', callback);
+  }
+
+  self.getwalletstatus = function(callback) {
+    api_query('getwalletstatus', callback);
+  }
+
+  self.makewithdrawal = function(address, amount, callback) {
+    api_query('makewithdrawal', callback, { address: address, amount: amount });
   }
 }
 
