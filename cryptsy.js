@@ -164,7 +164,7 @@ function CryptsyClient(key, secret) {
   }
 
   self.makewithdrawl = function(address, amount, callback) {
-    api_query('makewithdrawl', callback, { address: address, amount: amount });
+    api_query('makewithdrawal', callback, { address: address, amount: amount });
   }
 
   self.cancelorder = function(orderid, callback) {
