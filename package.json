@@ -1,13 +1,17 @@
 {
   "name": "cryptsy-api",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "description": "cryptsy.com API client for node.js",
   "keywords": [
     "btc",
     "bitcoin",
+    "litecoin",
+    "ltc",
+    "dogecoin",
+    "doge",
     "crypsty"
   ],
-  "author": "Robert Myers (https://github.com/nothingisdead)",
+  "author": "Mike Murray (https://github.com/mlmurray) - Forked from code by Robert Myers (https://github.com/nothingisdead)",
   "contributors": [
   ],
   "license": "MIT",
@@ -17,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nothingisdead/npm-cryptsy-api"
+    "url": "https://github.com/mlmurray/npm-cryptsy-api"
   },
   "main": "cryptsy.js",
   "engines": {
     "node": ">=0.10"
   },
   "bugs": {
-    "url": "https://github.com/nothingisdead/npm-cryptsy-api/issues",
-    "email": "rbmyr8@gmail.com"
+    "url": "https://github.com/mlmurray/npm-cryptsy-api/issues",
+    "email": "mmurray@episteme.ca"
   },
   "readmeFilename": "README.md"
 }

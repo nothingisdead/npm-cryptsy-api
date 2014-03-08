@@ -50,11 +50,34 @@ function CryptsyClient(key, secret) {
       }
     }
     request(options, function(err, res, body) {
-      var response = JSON.parse(body);
-      if(parseInt(response.success) === 1 && typeof callback == typeof Function)
-        callback(response.return);
-      else if(response.error)
-        throw new Error(response.error);
+      if( err || !body ) {
+        log.info('Cryptsy API Query problem. Retrying. The error was: ', err);
+        api_query(method, callback, args);
+      } else {
+        var queryErr;
+        try {
+          var response = JSON.parse(body);
+        }
+        catch(errtwo) {
+           queryErr = true;
+           log.info('Cryptsy API: Problem with response parsing.  Retrying. The error was: ', errtwo.message);
+           log.debug('Cryptsy API: Problem with response parsing.  Response Body: ', body);
+           api_query(method, callback, args);
+           //callback(response.return);
+        }
+        if(queryErr)
+          log.debug('Cryptsy API: QueryErr code');
+        else if (!response) {
+          log.info('Cryptsy API: Response is undefined.');
+          throw new Error(response.error);          
+        }
+        else if(parseInt(response.success) === 1 && typeof callback == typeof Function)
+                callback(response.return);
+        else if(response.error) {
+                log.info('Cryptsy API Error. Response error.');
+                throw new Error(response.error);
+        }
+      }
     });
   }
 
@@ -138,6 +161,10 @@ function CryptsyClient(key, secret) {
 
   self.createorder = function(marketid, ordertype, quantity, price, callback) {
     api_query('createorder', callback, { marketid: marketid, ordertype: ordertype, quantity: quantity, price: price });
+  }
+
+  self.makewithdrawl = function(address, amount, callback) {
+    api_query('makewithdrawal', callback, { address: address, amount: amount });
   }
 
   self.cancelorder = function(orderid, callback) {
