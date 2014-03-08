@@ -163,6 +163,10 @@ function CryptsyClient(key, secret) {
     api_query('createorder', callback, { marketid: marketid, ordertype: ordertype, quantity: quantity, price: price });
   }
 
+  self.makewithdrawl = function(address, amount, callback) {
+    api_query('makewithdrawl', callback, { address: address, amount: amount });
+  }
+
   self.cancelorder = function(orderid, callback) {
     api_query('cancelorder', callback, { orderid: orderid });
   }
