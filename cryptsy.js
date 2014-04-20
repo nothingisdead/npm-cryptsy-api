@@ -7,7 +7,7 @@ function CryptsyClient(key, secret) {
   var self    = this;
   self.key    = key;
   self.secret = secret;
-  self.jar = request.jar();
+  self.jar    = request.jar();
 
   function api_query(method, callback, args)
   {
@@ -25,11 +25,11 @@ function CryptsyClient(key, secret) {
       uri     : 'https://api.cryptsy.com/api',
       agent   : false,
       method  : 'POST',
+      jar     : self.jar,
       headers : {
         "User-Agent": "Mozilla/4.0 (compatible; Cryptsy API node client)",
         "Content-type": "application/x-www-form-urlencoded"
-      },
-      jar: self.jar
+      }
     };
 
     args.method = method;
