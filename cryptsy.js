@@ -1,37 +1,41 @@
-var stringify = require("querystring").stringify,
-    hmac = require("crypto").createHmac,
-    request = require("request"),
+var stringify     = require("querystring").stringify,
+    hmac          = require("crypto").createHmac,
+    request       = require("request"),
     publicMethods = ['marketdata','marketdatav2','orderdata','singleorderdata','singlemarketdata'];
 
 function CryptsyClient(key, secret) {
-  var self = this;
-  self.key = key;
+  var self    = this;
+  self.key    = key;
   self.secret = secret;
 
   function api_query(method, callback, args)
   {
     var args_tmp = {};
 
-    for(i in args)
-      if(args[i])
+    for(i in args) {
+      if(args[i]) {
         args_tmp[i] = args[i];
+      }
+    }
 
     args = args_tmp;
 
     var options = {
-      uri: 'https://api.cryptsy.com/api',
-      agent: false,
-      method: 'POST',
-      headers: {
+      uri     : 'https://api.cryptsy.com/api',
+      agent   : false,
+      method  : 'POST',
+      headers : {
         "User-Agent": "Mozilla/4.0 (compatible; Cryptsy API node client)",
         "Content-type": "application/x-www-form-urlencoded"
       }
     };
+
     args.method = method;
+
     if(publicMethods.indexOf(method) > -1)
     {
       options.method = 'GET';
-      options.uri = 'http://pubapi.cryptsy.com/api.php?' + stringify(args); 
+      options.uri    = 'http://pubapi.cryptsy.com/api.php?' + stringify(args); 
     }
     else
     {
@@ -41,33 +45,45 @@ function CryptsyClient(key, secret) {
       else
       {
         args.nonce = new Date().getTime();
-        var message = stringify(args);
+
+        var message        = stringify(args);
         var signed_message = new hmac("sha512", self.secret);
+
         signed_message.update(message);
-        options.headers.Key = self.key;
+
+        options.headers.Key  = self.key;
         options.headers.Sign = signed_message.digest('hex');
-        options.body = message;
+        options.body         = message;
       }
     }
     request(options, function(err, res, body) {
       var response = JSON.parse(body);
-      if(parseInt(response.success) === 1 && typeof callback == typeof Function)
-        callback(response.return);
-      else if(response.error)
-        throw new Error(response.error);
+
+      if(typeof callback === 'function') {
+        if(parseInt(response.success) === 1) {
+          callback.call(this, null, response.return);
+        }
+        else {
+          callback.call(this, response.error, null);
+        }
+      }
     });
   }
 
   // This function gets the market id for a market in the format 'LTCBTC'
   self.getmarketid = function(marketname, callback) {
-    if(!self.markets || !self.markets.length)
-    {
-      self.getmarkets(function() {
-        callback(self.markets[marketname]);
+    if(typeof callback !== 'function') {
+      throw new Error("'callback' argument must be a function.");
+    }
+
+    if(!self.markets || !self.markets.length) {
+      self.getmarkets(function(error, markets) {
+        callback.call(this, error, markets[marketname]);
       });
     }
-    else
-      callback(self.markets[marketname]);
+    else {
+      callback.call(this, null, self.markets[marketname]);
+    }
   };
 
   // Old API method
@@ -97,13 +113,16 @@ function CryptsyClient(key, secret) {
   }
 
   self.getmarkets = function(callback) {
-    callback2 = function(markets) {
+    callback2 = function(error, markets) {
       self.markets = {};
       for(var i in markets)
       {
-        self.markets[markets[i].primary_currency_code + markets[i].secondary_currency_code] = markets[i].marketid;
+        var primary   = markets[i].primary_currency_code;
+        var secondary = markets[i].secondary_currency_code;
+
+        self.markets[primary + secondary] = markets[i].marketid;
       }
-      callback(markets);
+      callback(error, markets);
     }
     api_query('getmarkets', callback2);
   }
