@@ -7,6 +7,7 @@ function CryptsyClient(key, secret) {
   var self    = this;
   self.key    = key;
   self.secret = secret;
+  self.jar = request.jar();
 
   function api_query(method, callback, args)
   {
@@ -27,7 +28,8 @@ function CryptsyClient(key, secret) {
       headers : {
         "User-Agent": "Mozilla/4.0 (compatible; Cryptsy API node client)",
         "Content-type": "application/x-www-form-urlencoded"
-      }
+      },
+      jar: self.jar
     };
 
     args.method = method;
@@ -57,6 +59,8 @@ function CryptsyClient(key, secret) {
       }
     }
     request(options, function(err, res, body) {
+      if (!res || res.statusCode != 200) return callback(null);
+
       var response = JSON.parse(body);
 
       if(typeof callback === 'function') {
