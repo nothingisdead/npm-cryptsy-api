@@ -59,16 +59,29 @@ function CryptsyClient(key, secret) {
       }
     }
     request(options, function(err, res, body) {
-      if (!res || res.statusCode != 200) return callback(null);
+      var error = null;
 
-      var response = JSON.parse(body);
+      if(!body || !res || res.statusCode != 200) {
+        error = "Error in server response.";
+
+        setTimeout(function() {
+          api_query(method, callback, args);
+        }, 500);
+      }
+      else {
+        var response = JSON.parse(body);
+
+        if(response.error) {
+          error = response.error;
+        }
+      }
 
       if(typeof callback === 'function') {
-        if(parseInt(response.success) === 1) {
-          callback.call(this, null, response.return);
+        if(error) {
+          callback.call(this, error, null);
         }
         else {
-          callback.call(this, response.error, null);
+          callback.call(this, null, response.return);
         }
       }
     });
