@@ -93,7 +93,7 @@ function CryptsyClient(key, secret) {
       throw new Error("'callback' argument must be a function.");
     }
 
-    if(!self.markets || !self.markets.length) {
+    if(!self.markets || !Object.keys(self.markets).length) {
       self.getmarkets(function(error, markets) {
         callback.call(this, error, markets[marketname]);
       });
