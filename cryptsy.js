@@ -139,7 +139,7 @@ function CryptsyClient(key, secret) {
 
         self.markets[primary + secondary] = markets[i].marketid;
       }
-      callback(error, markets);
+      callback(error, self.markets);
     }
     api_query('getmarkets', callback2);
   }
