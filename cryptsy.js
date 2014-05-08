@@ -84,6 +84,8 @@ function CryptsyClient(key, secret) {
           // The return parameter is not available when we create an order
           if (response.return) {
             callback.call(this, null, response.return);
+            
+            return;
           }
           callback.call(this, null, response);
         }
