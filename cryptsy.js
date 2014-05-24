@@ -1,7 +1,7 @@
 var stringify     = require("querystring").stringify,
     hmac          = require("crypto").createHmac,
     request       = require("request"),
-    publicMethods = ['marketdata','marketdatav2','orderdata','singleorderdata','singlemarketdata'];
+    publicMethods = ['marketdata','marketdatav2','orderdata','orderdatav2','singleorderdata','singlemarketdata'];
 
 function CryptsyClient(key, secret) {
   var self    = this;
@@ -119,6 +119,10 @@ function CryptsyClient(key, secret) {
 
   self.orderdata = function(callback) {
     api_query('orderdata', callback);
+  }
+  
+  self.orderdatav2 = function(callback) {
+    api_query('orderdatav2', callback);
   }
 
   self.singleorderdata = function(marketid, callback) {
