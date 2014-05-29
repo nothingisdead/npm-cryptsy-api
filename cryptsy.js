@@ -63,10 +63,6 @@ function CryptsyClient(key, secret) {
 
       if(!body || !res || res.statusCode != 200) {
         error = "Error in server response.";
-
-        setTimeout(function() {
-          api_query(method, callback, args);
-        }, 500);
       }
       else {
         var response = JSON.parse(body);
