@@ -172,6 +172,10 @@ function CryptsyClient(key, secret) {
     api_query('myorders', callback, { marketid: marketid });
   }
 
+  self.depth = function(marketid, callback) {
+    api_query('depth', callback, { marketid: marketid });
+  }
+
   self.allmyorders = function(callback) {
     api_query('allmyorders', callback);
   }
