@@ -176,6 +176,10 @@ function CryptsyClient(key, secret) {
     api_query('myorders', callback, { marketid: marketid });
   }
 
+  self.depth = function(marketid, callback) {
+    api_query('depth', callback, { marketid: marketid });
+  }
+
   self.allmyorders = function(callback) {
     api_query('allmyorders', callback);
   }
@@ -186,6 +190,10 @@ function CryptsyClient(key, secret) {
 
   self.cancelorder = function(orderid, callback) {
     api_query('cancelorder', callback, { orderid: orderid });
+  }
+
+  self.cancelmarketorders = function(marketid, callback) {
+    api_query('cancelmarketorders', callback, { marketid: marketid });
   }
 
   self.calculatefees = function(ordertype, quantity, price, callback) {
