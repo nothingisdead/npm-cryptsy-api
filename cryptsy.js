@@ -1,7 +1,7 @@
 var stringify     = require("querystring").stringify,
-		hmac          = require("crypto").createHmac,
-		request       = require("request"),
-		publicMethods = ['marketdata','marketdatav2','orderdata','orderdatav2','singleorderdata','singlemarketdata'];
+	hmac          = require("crypto").createHmac,
+	request       = require("request"),
+	publicMethods = ['marketdata','marketdatav2','orderdata','orderdatav2','singleorderdata','singlemarketdata'];
 
 function CryptsyClient(key, secret, requeue) {
 	var self    = this;
