@@ -3,11 +3,13 @@ var stringify     = require("querystring").stringify,
 		request       = require("request"),
 		publicMethods = ['marketdata','marketdatav2','orderdata','orderdatav2','singleorderdata','singlemarketdata'];
 
-function CryptsyClient(key, secret) {
+function CryptsyClient(key, secret, requeue) {
 	var self    = this;
-	self.key    = key;
-	self.secret = secret;
-	self.jar    = request.jar();
+
+	self.key     = key;
+	self.secret  = secret;
+	self.jar     = request.jar();
+	self.requeue = requeue || false;
 
 	function api_query(method, callback, args)
 	{
@@ -59,29 +61,35 @@ function CryptsyClient(key, secret) {
 			}
 		}
 		request(options, function(err, res, body) {
-			var error = null;
-
 			if(!body || !res || res.statusCode != 200) {
 				error = "Error in server response.";
 
-				setTimeout(function() {
-					api_query(method, callback, args);
-				}, 500);
+				if(requeue) {
+					setTimeout(function() {
+						api_query(method, callback, args);
+					}, 500);
+				}
 			}
 			else {
-				var response = JSON.parse(body);
+				var error  = null;
+				var result = null;
 
-				if(response.error) {
-					error = response.error;
-				}
-			}
+				try {
+					var response = JSON.parse(body);
 
-			if(typeof callback === 'function') {
-				if(error) {
-					callback.call(this, error, null);
+					if(response.error) {
+						error = response.error;
+					}
+					else {
+						result = response.return || response;
+					}
 				}
-				else {
-					callback.call(this, null, response.return);
+				catch(e) {
+					error = "Error parsing server response: " + e.message;
+				}
+
+				if(typeof callback === 'function') {
+					callback.call(this, error, result);
 				}
 			}
 		});
