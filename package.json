@@ -1,31 +1,31 @@
 {
-  "name": "cryptsy-api",
-  "version": "0.2.2",
-  "description": "cryptsy.com API client for node.js",
-  "keywords": [
-    "btc",
-    "bitcoin",
-    "crypsty"
-  ],
-  "author": "Robert Myers (https://github.com/nothingisdead)",
-  "contributors": [
-  ],
-  "license": "MIT",
-  "dependencies": {
-    "querystring": ">=0.2.0",
-    "request": ">=2.21.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nothingisdead/npm-cryptsy-api"
-  },
-  "main": "cryptsy.js",
-  "engines": {
-    "node": ">=0.10"
-  },
-  "bugs": {
-    "url": "https://github.com/nothingisdead/npm-cryptsy-api/issues",
-    "email": "rbmyr8@gmail.com"
-  },
-  "readmeFilename": "README.md"
+	"name": "cryptsy-api",
+	"version": "0.2.2",
+	"description": "cryptsy.com API client for node.js",
+	"keywords": [
+		"btc",
+		"bitcoin",
+		"crypsty"
+	],
+	"author": "Robert Myers (https://github.com/nothingisdead)",
+	"contributors": [
+	],
+	"license": "MIT",
+	"dependencies": {
+		"querystring": ">=0.2.0",
+		"request": ">=2.21.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nothingisdead/npm-cryptsy-api"
+	},
+	"main": "cryptsy.js",
+	"engines": {
+		"node": ">=0.10"
+	},
+	"bugs": {
+		"url": "https://github.com/nothingisdead/npm-cryptsy-api/issues",
+		"email": "rbmyr8@gmail.com"
+	},
+	"readmeFilename": "README.md"
 }
