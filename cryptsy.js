@@ -114,111 +114,113 @@ function CryptsyClient(key, secret, requeue) {
 	// Old API method
 	self.marketdata = function(callback) {
 		api_query('marketdata', callback);
-	}
+	};
 
 	// New API method
 	self.marketdatav2 = function(callback) {
 		api_query('marketdatav2', callback);
-	}
+	};
 
 	self.singlemarketdata = function(marketid, callback) {
 		api_query('singlemarketdata', callback, { marketid: marketid });
-	}
+	};
 
 	self.orderdata = function(callback) {
 		api_query('orderdata', callback);
-	}
+	};
 
 	self.orderdatav2 = function(callback) {
 		api_query('orderdatav2', callback);
-	}
+	};
 
 	self.singleorderdata = function(marketid, callback) {
 		api_query('singleorderdata', callback, { marketid: marketid });
-	}
+	};
 
 	self.getinfo = function(callback) {
 		api_query("getinfo", callback);
-	}
+	};
 
 	self.getmarkets = function(callback) {
 		callback2 = function(error, markets) {
 			self.markets = {};
-			for(var i in markets)
-			{
+
+			for(var i in markets) {
 				var primary   = markets[i].primary_currency_code;
 				var secondary = markets[i].secondary_currency_code;
 
 				self.markets[primary + secondary] = markets[i].marketid;
 			}
+
 			callback(error, self.markets);
-		}
+		};
+
 		api_query('getmarkets', callback2);
-	}
+	};
 
 	self.mytransactions = function(callback) {
 		api_query('mytransactions', callback);
-	}
+	};
 
 	self.markettrades = function(marketid, callback) {
 		api_query('markettrades', callback, { marketid: marketid });
-	}
+	};
 
 	self.marketorders = function(marketid, callback) {
 		api_query('marketorders', callback, { marketid: marketid });
-	}
+	};
 
 	self.mytrades = function(marketid, limit, callback) {
-		api_query('mytrades', callback, { marketid: marketid, limit: limit })
-	}
+		api_query('mytrades', callback, { marketid: marketid, limit: limit });
+	};
 
 	self.allmytrades = function(callback) {
 		api_query('allmytrades', callback);
-	}
+	};
 
 	self.allmytradesdaterange = function(dates, callback) {
 		api_query('allmytrades', callback, { startdate: dates.startdate, enddate: dates.enddate });
-	}
+	};
 
 	self.myorders = function(marketid, callback) {
 		api_query('myorders', callback, { marketid: marketid });
-	}
+	};
 
 	self.depth = function(marketid, callback) {
 		api_query('depth', callback, { marketid: marketid });
-	}
+	};
 
 	self.allmyorders = function(callback) {
 		api_query('allmyorders', callback);
-	}
+	};
 
 	self.createorder = function(marketid, ordertype, quantity, price, callback) {
 		api_query('createorder', callback, { marketid: marketid, ordertype: ordertype, quantity: quantity, price: price });
-	}
+	};
 
 	self.cancelorder = function(orderid, callback) {
 		api_query('cancelorder', callback, { orderid: orderid });
-	}
+	};
 
 	self.cancelmarketorders = function(marketid, callback) {
 		api_query('cancelmarketorders', callback, { marketid: marketid });
-	}
+	};
 
 	self.calculatefees = function(ordertype, quantity, price, callback) {
 		api_query('calculatefees', callback, { ordertype: ordertype, quantity: quantity, price: price });
-	}
+	};
 
 	self.mytransfers = function(callback) {
 		api_query('mytransfers', callback);
-	}
+	};
 
 	self.getwalletstatus = function(callback) {
 		api_query('getwalletstatus', callback);
-	}
+	};
 
 	self.makewithdrawal = function(address, amount, callback) {
 		api_query('makewithdrawal', callback, { address: address, amount: amount });
-	}
+	};
 }
 
 module.exports = CryptsyClient;
