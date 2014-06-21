@@ -9,7 +9,7 @@ function CryptsyClient(key, secret, requeue) {
 	self.key     = key;
 	self.secret  = secret;
 	self.jar     = request.jar();
-	self.requeue = requeue || false;
+	self.requeue = requeue || 0;
 
 	function api_query(method, callback, args)
 	{
@@ -62,12 +62,15 @@ function CryptsyClient(key, secret, requeue) {
 		}
 		request(options, function(err, res, body) {
 			if(!body || !res || res.statusCode != 200) {
-				error = "Error in server response.";
+				var requeue = +self.requeue;
 
 				if(requeue) {
 					setTimeout(function() {
 						api_query(method, callback, args);
-					}, 500);
+					}, requeue);
+				}
+				else if(typeof callback === 'function') {
+					callback.call(this, "Error in server response", null);
 				}
 			}
 			else {
