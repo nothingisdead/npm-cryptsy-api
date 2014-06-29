@@ -98,6 +98,23 @@ function CryptsyClient(key, secret, requeue) {
 		});
 	}
 
+	function getmarketids(callback) {
+		var callback2 = function(error, markets) {
+			self.markets = {};
+
+			for(var i in markets) {
+				var primary   = markets[i].primary_currency_code;
+				var secondary = markets[i].secondary_currency_code;
+
+				self.markets[primary + secondary] = markets[i].marketid;
+			}
+
+			callback(error, self.markets);
+		};
+
+		self.getmarkets(callback2);
+	}
+
 	// This function gets the market id for a market in the format 'LTCBTC'
 	self.getmarketid = function(marketname, callback) {
 		if(typeof callback !== 'function') {
@@ -105,7 +122,7 @@ function CryptsyClient(key, secret, requeue) {
 		}
 
 		if(!self.markets || !Object.keys(self.markets).length) {
-			self.getmarkets(function(error, markets) {
+			getmarketids(function(error, markets) {
 				callback.call(this, error, markets[marketname]);
 			});
 		}
@@ -145,20 +162,7 @@ function CryptsyClient(key, secret, requeue) {
 	};
 
 	self.getmarkets = function(callback) {
-		callback2 = function(error, markets) {
-			self.markets = {};
-
-			for(var i in markets) {
-				var primary   = markets[i].primary_currency_code;
-				var secondary = markets[i].secondary_currency_code;
-
-				self.markets[primary + secondary] = markets[i].marketid;
-			}
-
-			callback(error, self.markets);
-		};
-
-		api_query('getmarkets', callback2);
+		api_query('getmarkets', callback);
 	};
 
 	self.mytransactions = function(callback) {
