@@ -98,7 +98,7 @@ function CryptsyClient(key, secret, requeue) {
     });
   }
 
-  function getmarketids(callback) {
+  function getMarketIds(callback) {
     var callback2 = function(error, markets) {
       self.markets = {};
 
@@ -112,17 +112,17 @@ function CryptsyClient(key, secret, requeue) {
       callback(error, self.markets);
     };
 
-    self.getmarkets(callback2);
+    self.getMarkets(callback2);
   }
 
   // This function gets the market id for a market in the format 'LTCBTC'
-  self.getmarketid = function(marketname, callback) {
+  self.getMarketId = function(marketname, callback) {
     if(typeof callback !== 'function') {
       throw new Error("'callback' argument must be a function.");
     }
 
     if(!self.markets || !Object.keys(self.markets).length) {
-      getmarketids(function(error, markets) {
+      getMarketIds(function(error, markets) {
         callback.call(this, error, markets[marketname]);
       });
     }
