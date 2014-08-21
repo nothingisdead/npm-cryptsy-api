@@ -12,9 +12,9 @@ var cryptsy = require('cryptsy-api');
 var client = new cryptsy('my_public_key', 'my_private_key');
 
 // Get the market ID for the NBL<-->BTC market
-client.getmarketid(market, function(error, market_id) {
+client.getMarketId(market, function(error, market_id) {
 	// Display user's trades in that market
-	client.mytrades(market_id, null, function(error, trades) {
+	client.myTrades(market_id, null, function(error, trades) {
 		console.log('Your trades in the ' + market + ' market:');
 		if(trades.length)
 		{
