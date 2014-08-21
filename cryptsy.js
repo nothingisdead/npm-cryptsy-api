@@ -228,6 +228,11 @@ function CryptsyClient(key, secret, requeue) {
 	self.makewithdrawal = function(address, amount, callback) {
 		api_query('makewithdrawal', callback, { address: address, amount: amount });
 	};
+	
+	self.getorderstatus = function(orderid, callback) {
+		api_query('getorderstatus', callback, { orderid: orderid });
+	};
+
 }
 
 module.exports = CryptsyClient;
