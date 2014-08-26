@@ -70,7 +70,7 @@ function CryptsyClient(key, secret, requeue) {
 					}, requeue);
 				}
 				else if(typeof callback === 'function') {
-					callback.call(this, "Error in server response", null);
+					callback(err);
 				}
 			}
 			else {
